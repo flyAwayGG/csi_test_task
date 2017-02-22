@@ -6,6 +6,8 @@ import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import utils.Drivers;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by root on 22.02.17.
  */
@@ -14,18 +16,18 @@ public abstract class TestBase {
 
     private WebDriver driver;
 
-    public WebDriver driver(){
+    protected WebDriver driver(){
         return driver;
     }
 
     @BeforeSuite
     private void beforeSuite(){
         //driver = Drivers.getDriverByName();
+
     }
 
     @AfterSuite(alwaysRun = true)
     private void afterSuite(){
-        driver.manage().deleteAllCookies();
         driver.quit();
     }
 

@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by root on 22.02.17.
@@ -31,7 +32,11 @@ public enum Drivers {
                 throw new AppException("Cannot create FirefoxDriver, use Firefox version 51 or more");
             }
 
-            return new FirefoxDriver();
+            driver.manage().window().fullscreen();
+            driver.manage().timeouts().implicitlyWait(200, TimeUnit.MILLISECONDS);
+            driver.manage().timeouts().pageLoadTimeout(2,TimeUnit.SECONDS);
+
+            return driver;
         }
     },
     CHROME("chrome") {
