@@ -7,6 +7,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.NoSuchElementException;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Predicate;
 
 import static java.util.concurrent.TimeUnit.*;
@@ -23,19 +24,19 @@ public abstract class MailRuBasePage {
         PageFactory.initElements(driver,this);
     }
 
-    
 
-    public void open(){
-        driver().get("https://mail.ru/");
-        waitForElementLoad();
-    }
-
-    protected void waitForElementLoad(WebElement element){
+    protected void waitForElementLoad(WebElement element, int time, TimeUnit units){
         new FluentWait<>(driver())
-                .withTimeout(2, SECONDS)
-                .pollingEvery(500,MILLISECONDS)
+                .withTimeout(time, units)
+                .pollingEvery((int)(time/4), units)
                 .ignoring(NoSuchElementException.class)
                 .until((Function<WebDriver,Boolean>) (WebDriver) -> element.isDisplayed());
+    }
+
+//    abstract <? extends MailRuBasePage> waitForLoad();
+
+    public void logout(){
+
     }
 
     protected WebDriver driver(){
