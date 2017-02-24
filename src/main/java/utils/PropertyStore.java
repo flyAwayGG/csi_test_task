@@ -12,20 +12,10 @@ public class PropertyStore {
 
     private static volatile PropertyStore propertyStore = null;
     private String browserName;
-    private File browserFile;
 
     private PropertyStore() {
         Properties envProps = getProperties();
         browserName = envProps.getProperty("browser.name");
-
-        String browserPath = envProps.getProperty("browser.path");
-        /** Check that browser exists on browserPath*/
-        if (!"".equals(browserPath)) {
-            browserFile = new File(browserPath);
-            if (!browserFile.exists()) {
-                throw new AppException("Browser on path [" + browserPath + "] is not exists.");
-            }
-        }
     }
 
     public static PropertyStore getInstance() {
@@ -40,10 +30,6 @@ public class PropertyStore {
 
     public String getBrowserName() {
         return browserName;
-    }
-
-    public File getBrowserFile() {
-        return browserFile;
     }
 
     private static Properties getProperties() {

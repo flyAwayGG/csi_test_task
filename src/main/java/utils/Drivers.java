@@ -1,12 +1,10 @@
 package utils;
 
+import org.apache.commons.lang3.SystemUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
 
-import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -18,30 +16,33 @@ public enum Drivers {
 
     FIREFOX("firefox") {
         public WebDriver getDriver() {
-            System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");
-
-            FirefoxProfile fp = new FirefoxProfile();
-            File browserFile = PropertyStore.getInstance().getBrowserFile();
-            FirefoxDriver driver;
-
-            try {
-                if (browserFile != null) {
-                    FirefoxBinary fb = new FirefoxBinary(browserFile);
-                    driver = new FirefoxDriver(fb, fp);
-                } else {
-                    driver = new FirefoxDriver();
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                throw new AppException("Cannot create FirefoxDriver, use Firefox version 51 or more");
+            String driverPath;
+            if (SystemUtils.IS_OS_WINDOWS) {
+                driverPath = "src/main/resources/drivers/geckodriver.exe";
+            } else if (SystemUtils.IS_OS_LINUX) {
+                driverPath = "src/main/resources/drivers/geckodriver";
+            } else {
+                throw new AppException("OS is not defined.");
             }
+            System.setProperty("webdriver.gecko.driver", driverPath);
 
+            FirefoxDriver driver = new FirefoxDriver();
             manageDriver(driver);
             return driver;
         }
     },
     CHROME("chrome") {
         public WebDriver getDriver() {
+            String driverPath;
+            if (SystemUtils.IS_OS_WINDOWS) {
+                driverPath = "src/main/resources/drivers/chromedriver.exe";
+            } else if (SystemUtils.IS_OS_LINUX) {
+                driverPath = "src/main/resources/drivers/chromedriver";
+            } else {
+                throw new AppException("OS is not defined.");
+            }
+            System.setProperty("webdriver.chrome.driver", driverPath);
+
             ChromeDriver driver = new ChromeDriver();
             manageDriver(driver);
             return driver;
@@ -70,6 +71,5 @@ public enum Drivers {
 
     private static void manageDriver(WebDriver driver) {
         driver.manage().timeouts().implicitlyWait(300, TimeUnit.MILLISECONDS);
-        driver.manage().timeouts().pageLoadTimeout(10,TimeUnit.SECONDS);
     }
 }

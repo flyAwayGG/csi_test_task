@@ -1,11 +1,9 @@
 package pageobjects;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.FindBys;
-import org.openqa.selenium.support.PageFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import utils.AppException;
 
@@ -18,7 +16,6 @@ import java.util.concurrent.TimeUnit;
 public class MainEmailsPage extends MailRuBasePage{
     public MainEmailsPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
     }
 
     @FindBy(css=".b-datalist__body")

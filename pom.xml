@@ -21,13 +21,10 @@
             <artifactId>selenium-java</artifactId>
             <version>3.0.1</version>
         </dependency>
-
-
     </dependencies>
 
     <properties>
         <browser.name>firefox</browser.name>
-        <browser.path></browser.path>
     </properties>
 
     <build>

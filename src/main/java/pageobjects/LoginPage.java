@@ -25,7 +25,6 @@ public class LoginPage extends MailRuBasePage {
 
     public LoginPage(WebDriver driver) {
         super(driver);
-        PageFactory.initElements(driver,this);
     }
 
     public void open(){

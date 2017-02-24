@@ -8,9 +8,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.FluentWait;
 
 import java.util.concurrent.TimeUnit;
-import java.util.function.Predicate;
 
-import static java.util.concurrent.TimeUnit.*;
 
 /**
  * Created by root on 22.02.17.
@@ -21,20 +19,14 @@ public abstract class MailRuBasePage {
 
     protected MailRuBasePage(WebDriver driver){
         this.webDriver = driver;
+        PageFactory.initElements(driver, this);
     }
-
 
     protected void waitForElementLoad(WebElement element, int time, TimeUnit units){
         new FluentWait<>(driver())
                 .withTimeout(time, units)
                 .ignoring(NoSuchElementException.class)
                 .until((Function<WebDriver,Boolean>) (WebDriver) -> element.isDisplayed());
-    }
-
-//    abstract <? extends MailRuBasePage> waitForLoad();
-
-    public void logout(){
-
     }
 
     protected WebDriver driver(){

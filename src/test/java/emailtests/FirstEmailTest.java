@@ -1,16 +1,14 @@
 package emailtests;
 
-import org.testng.annotations.AfterClass;
-import org.testng.annotations.BeforeClass;
-import org.testng.annotations.Test;
+import org.testng.annotations.*;
 import pageobjects.EmailPage;
 import pageobjects.LoginPage;
 import pageobjects.MainEmailsPage;
-import utils.AppException;
 import webobjects.EmailData;
 import webobjects.LoginData;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.Assert.assertEquals;
+
 
 /**
  * Created by root on 22.02.17.
@@ -21,8 +19,8 @@ public class FirstEmailTest extends TestBase {
     private MainEmailsPage mainEmailsPage;
     private EmailPage emailPage;
 
-    @BeforeClass
-    public void beforeClass(){
+    @BeforeTest
+    public void beforeTest(){
         loginPage = new LoginPage(driver());
         mainEmailsPage = new MainEmailsPage(driver());
         emailPage = new EmailPage(driver());
@@ -52,7 +50,7 @@ public class FirstEmailTest extends TestBase {
 
     }
 
-    @AfterClass
+    @AfterTest
     public void logout(){
         emailPage.logout();
     }
