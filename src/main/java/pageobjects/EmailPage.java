@@ -29,7 +29,6 @@ public class EmailPage extends MailRuBasePage {
 
     public EmailPage(WebDriver driver) {
         super(driver);
-//        PageFactory.initElements(driver, this);
     }
 
     public EmailPage waitForLoad() {
