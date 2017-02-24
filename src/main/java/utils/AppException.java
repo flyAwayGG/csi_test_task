@@ -1,6 +1,5 @@
 package utils;
 
-import org.openqa.selenium.WebDriver;
 
 /**
  * Created by root on 22.02.17.

@@ -11,10 +11,8 @@ import java.util.Properties;
 public class PropertyStore {
 
     private static volatile PropertyStore propertyStore = null;
-    @Nullable
-    private final String browserName;
-    @Nullable
-    private final File browserFile;
+    private String browserName;
+    private File browserFile;
 
     private PropertyStore() {
         Properties envProps = getProperties();
@@ -22,15 +20,15 @@ public class PropertyStore {
 
         String browserPath = envProps.getProperty("browser.path");
         /** Check that browser exists on browserPath*/
-        if (browserPath != null) {
-            browserFile = new File(browserFile);
+        if (!"".equals(browserPath)) {
+            browserFile = new File(browserPath);
             if (!browserFile.exists()) {
                 throw new AppException("Browser on path [" + browserPath + "] is not exists.");
             }
         }
     }
 
-    public PropertyStore getInstance() {
+    public static PropertyStore getInstance() {
         if (propertyStore == null)
             synchronized (PropertyStore.class) {
                 if (propertyStore == null)

@@ -1,48 +1,44 @@
 package pageobjects;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 import webobjects.LoginData;
+
+import java.util.concurrent.TimeUnit;
 
 /**
  * Created by root on 22.02.17.
  */
 public class LoginPage extends MailRuBasePage {
 
-    @FindBy(css ="")
-    private WebElement elemForWait;
+    @FindBy(css ="#mailbox__login")
+    private WebElement loginInput;
 
-    @FindBy(css ="")
-    private WebElement emailInput;
-
-    @FindBy(css ="")
+    @FindBy(css ="#mailbox__password")
     private WebElement passInput;
 
-    @FindBy(css="")
-    private WebElement saveCredentialsCheckbox;
-
-    @FindBy(css="")
+    @FindBy(css="#mailbox__auth__button")
     private WebElement loginButton;
 
     public LoginPage(WebDriver driver) {
         super(driver);
+        PageFactory.initElements(driver,this);
     }
 
     public void open(){
         driver().get("https://mail.ru/");
-        waitForElementLoad(elemForWait);
+        waitForElementLoad(loginInput,5, TimeUnit.SECONDS);
     }
 
-
     public MainEmailsPage login(LoginData loginData){
-        emailInput.sendKeys(loginData.getEmail());
+        loginInput.sendKeys(loginData.getEmail());
         passInput.sendKeys(loginData.getPassword());
-        saveCredentialsCheckbox.sendKeys(loginData.getSaveCredentials());
 
         loginButton.click();
         return new MainEmailsPage(driver()).waitForLoad();
-        // Wait for opening MainPage
-
     }
 
     public LoginPage waitForLoad(){

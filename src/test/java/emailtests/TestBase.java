@@ -5,6 +5,7 @@ import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Test;
 import utils.Drivers;
+import utils.PropertyStore;
 
 import java.util.concurrent.TimeUnit;
 
@@ -21,13 +22,14 @@ public abstract class TestBase {
     }
 
     @BeforeSuite
-    private void beforeSuite(){
-        //driver = Drivers.getDriverByName();
+    public void beforeSuite(){
+        String browserName = PropertyStore.getInstance().getBrowserName();
+        driver = Drivers.getDriverByName(browserName);
 
     }
 
     @AfterSuite(alwaysRun = true)
-    private void afterSuite(){
+    public void afterSuite(){
         driver.quit();
     }
 

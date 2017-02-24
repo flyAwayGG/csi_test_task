@@ -8,7 +8,6 @@ public class LoginData {
 
     private String email;
     private String password;
-    private boolean saveCredentials;
 
     private LoginData() {
 
@@ -22,11 +21,6 @@ public class LoginData {
         return password;
     }
 
-    public boolean getSaveCredentials() {
-        return saveCredentials;
-    }
-
-
     public static Builder builder(String email, String password) {
         return new LoginData().new Builder(email, password);
     }
@@ -36,12 +30,6 @@ public class LoginData {
         private Builder(String email, String password) {
             LoginData.this.email = email;
             LoginData.this.password = password;
-            LoginData.this.saveCredentials = false;
-        }
-
-        public Builder saveCredentials() {
-            LoginData.this.saveCredentials = true;
-            return this;
         }
 
         public LoginData build() {
