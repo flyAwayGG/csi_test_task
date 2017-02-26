@@ -1,4 +1,4 @@
-# Created by https://www.gitignore.io/api/java,eclipse,intellij,windows,osx,linux,m2e,maven
+ # Created by https://www.gitignore.io/api/java,eclipse,intellij,windows,osx,linux,m2e,maven
 
 ### Java ###
 *.class
